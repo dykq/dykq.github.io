@@ -1,7 +1,150 @@
-extends includes/layout.pug
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hexo</title><meta name="description"><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="website"><meta property="og:title" content="Hexo"><meta property="og:url" content="http://yoursite.com/"><meta property="og:site_name" content="Hexo"><meta property="og:description"><meta property="og:image" content="http://yoursite.com/img/avatar.png"><meta property="article:published_time" content="2020-06-23T10:24:46.017Z"><meta property="article:modified_time" content="2020-06-23T10:24:46.017Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
 
-block content
-  include ./includes/mixins/post-ui.pug
-  #recent-posts.recent-posts
-    +postUI
-    include includes/pagination.pug
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isSidebar: false
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Hexo</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site_title">Hexo</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll_down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/06/23/webpack/" title="webpack">webpack</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2020-06-23 15:58:17"><i class="far fa-calendar-alt"></i>2020-06-23</time></div><div class="content">webpack 依赖于 nodejs 而npm 代表的是node packages manage node的包管理安装node 可以通过node -v查看当前node版本 webpack -v 查看webpack版本{  关于grunt/gulp/webpack:  什么时候使用grunt/glup：  #如果一个工程的模块化依赖很简单或者没有用到模块化的概念  #只需要进行简单的合并、压缩，就可以使用grunt/gulp即可。  #若是项目需要使用模块化管理，而且相互依赖非常强时需要用到webpack。  gulp的task：  #下面的task就是将src下面所有的js文件转成es5语法并且最终输出到dist文件夹中      gulp.task(‘js’,() =&gt;      gulp.src(‘src/*.js)        .pipe(babel({          presets:[‘es2015’]        }))        .pipe(gulp.dest(‘dist’))      );      区别：      gulp和grunt强调的是前段流 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" title="Vue学习心得">     <img class="post_bg" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue学习心得"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" title="Vue学习心得">Vue学习心得</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2020-06-23 15:58:17"><i class="far fa-calendar-alt"></i>2020-06-23</time></div><div class="content">ctrl+alt+L 快速生成 logalt+shift+c 注释所有 logalt+shift+u 解除注释 logalt+shift+d 删除注释 logalt+shift+f 格式化代码ctrl+shift+e 资源管理器ctrl+shift+x 拓展ctrl+shift+f 搜索ctrl+shift+G 源代码管理ctrl+shift+D 运行ctrl K ctrl T 切换主题
+
+
+
+
+v-for = “(item,index) in 数据”v-bind: — : (v-bind 现阶段不支持驼峰命名比如在组件中创建了一个 prop 为cInfo 在组件中和实例 data 相连时需要用这样写:c-info:)v-on: —- @v-model:双向绑定 
+如：
+1&lt;input type&#x3D;&quot;text&quot; v-model &#x3D; &quot;message&quot;&gt;
+
+其实就是：
+12 &lt;input type&#x3D;&quot;text&quot; :value &#x3D; &quot;message&quot; @i ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/06/12/Ten-sorting-algorithms/" title="Ten sorting algorithms">Ten sorting algorithms</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2020-06-12 16:46:20"><i class="far fa-calendar-alt"></i>2020-06-12</time></div><div class="content">十大经典排序算法
+排序算法是《数据结构与算法》中最基本的算法之一。
+源于：https://www.cnblogs.com/onepixel/articles/7674659.html
+排序算法可以分为内部排序和外部排序，内部排序是数据记录在内存中进行排序，而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。常见的内部排序算法有：插入排序、希尔排序、选择排序、冒泡排序、归并排序、快速排序、堆排序、基数排序等。用一张图概括：
+
+关于时间复杂度：
+
+平方阶 (O(n2)) 排序 各类简单排序：直接插入、直接选择和冒泡排序。
+线性对数阶 (O(nlog2n)) 排序 快速排序、堆排序和归并排序；
+O(n1+§)) 排序，§ 是介于 0 和 1 之间的常数。 希尔排序
+线性阶 (O(n)) 排序 基数排序，此外还有桶、箱排序。
+
+关于稳定性：
+稳定的排序算法：冒泡排序、插入排序、归并排序和基数排序。
+不是稳定的排序算法：选择排序、快速排序、希尔排序、堆排序。
+名词解释：
+n：数据规模
+k：“桶”的个数
+In-place：占用常数内存，不占用额外内存
+Out-pla ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2020/06/05/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title="Hexo搭建博客">Hexo搭建博客</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2020-06-05 14:00:34"><i class="far fa-calendar-alt"></i>2020-06-05</time></div><div class="content">Hexo部署一、本地安装git1git 是一个开源的分布式版本控制系统
+
+下载地址:https://git-scm.com/download, 按照默认方式安装即可
+（ps：如果已经安装了git可以通过$ git clone https://github.com/git/git去获得最新版本）
+本地的桌面右键出现了gitBashHere则证明安装成功
+二、安装node.js123Node.js 是一个基于 Google V8 引擎的 JavaScript 环境，它支持在后端运行 JavaScript而 NPM 是默认与 Node.js 一起安装的包管理工具
+
+比如将node.js安装在了D:\node\目录下
+在该目录下创建文件夹node_global和node_cache 并执行
+12npm config set prefix &quot;D:\node\node_global&quot;npm config set cache &quot;D:\node\node_cache&quot;
+
+在系统环境变量中增加NODE_PATH， 在用户环境变量path下增加变量，变量值都为D:\ ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">文章</div><div class="length_num">4</div></a></div></div><div class="card-info-bookmark is-center"><button class="button--animated" id="bookmark-it" title="加入书签"><i class="fas fa-bookmark"></i><span>加入书签</span></button></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-recent-item"><div class="aside-recent-post"><a href="/2020/06/23/webpack/"><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/23/webpack/" title="webpack">webpack</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-23 15:58:17">2020-06-23</time></div></a></div><div class="aside-recent-post"><a href="/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Vue学习心得" alt="Vue学习心得"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" title="Vue学习心得">Vue学习心得</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-23 15:58:17">2020-06-23</time></div></a></div><div class="aside-recent-post"><a href="/2020/06/12/Ten-sorting-algorithms/"><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/12/Ten-sorting-algorithms/" title="Ten sorting algorithms">Ten sorting algorithms</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-12 16:46:20">2020-06-12</time></div></a></div><div class="aside-recent-post"><a href="/2020/06/05/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/05/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title="Hexo搭建博客">Hexo搭建博客</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-05 14:00:34">2020-06-05</time></div></a></div></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">六月 2020</span><span class="card-archive-list-count">4</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">文章数目 :</div><div class="webinfo-article-count">4</div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">本站访客数 :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">本站总访问量 :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By John Doe</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var subtitleEffect = true
+if (subtitleEffect) { 
+  var typed = new Typed("#subtitle", {
+    strings: "今日事&#44;今日畢,Never put off till tomorrow what you can do today".split(","),
+    startDelay: 300,
+    typeSpeed: 150,
+    loop: true,
+    backSpeed: 50
+  })
+} else {
+  document.getElementById("subtitle").innerHTML = '今日事&#44;今日畢'
+}</script></body></html>

@@ -1,25 +1,184 @@
-extends includes/layout.pug
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vue学习心得 | Hexo</title><meta name="description" content="ctrl+alt+L 快速生成 logalt+shift+c 注释所有 logalt+shift+u 解除注释 logalt+shift+d 删除注释 logalt+shift+f 格式化代码ctrl+shift+e 资源管理器ctrl+shift+x 拓展ctrl+shift+f 搜索ctrl+shift+G 源代码管理ctrl+shift+D 运行ctrl K ctrl T 切换主题"><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yoursite.com/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Vue学习心得"><meta property="og:url" content="http://yoursite.com/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"><meta property="og:site_name" content="Hexo"><meta property="og:description" content="ctrl+alt+L 快速生成 logalt+shift+c 注释所有 logalt+shift+u 解除注释 logalt+shift+d 删除注释 logalt+shift+f 格式化代码ctrl+shift+e 资源管理器ctrl+shift+x 拓展ctrl+shift+f 搜索ctrl+shift+G 源代码管理ctrl+shift+D 运行ctrl K ctrl T 切换主题"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-06-23T07:58:17.183Z"><meta property="article:modified_time" content="2020-06-23T09:00:11.313Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
 
-block content
-  article#post(class="")
-    #article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      !=partial('includes/share/index', {}, {cache:theme.fragment_cache})
-        
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache:theme.fragment_cache})
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
 
-    //- ad
-    if theme.ad && theme.ad.post
-      .post-ad!=theme.ad.post
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-    include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-    if page.comments !== false
-      include includes/comments/index.pug
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="webpack" href="http://yoursite.com/2020/06/23/webpack/"><link rel="next" title="Ten sorting algorithms" href="http://yoursite.com/2020/06/12/Ten-sorting-algorithms/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Hexo</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Vue学习心得</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-23 15:58:17"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-06-23</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-23 17:00:11"><i class="fas fa-history fa-fw"></i> 更新于 2020-06-23</span></time></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>ctrl+alt+L 快速生成 log<br>alt+shift+c 注释所有 log<br>alt+shift+u 解除注释 log<br>alt+shift+d 删除注释 log<br>alt+shift+f 格式化代码<br>ctrl+shift+e 资源管理器<br>ctrl+shift+x 拓展<br>ctrl+shift+f 搜索<br>ctrl+shift+G 源代码管理<br>ctrl+shift+D 运行<br>ctrl K ctrl T 切换主题</p>
+
+
+
+
+<p>v-for = “(item,index) in 数据”<br>v-bind: — : (v-bind 现阶段不支持驼峰命名<br>比如在组件中创建了一个 prop 为<br>cInfo 在组件中和实例 data 相连时需要用这样写:c-info:)<br>v-on: —- @<br>v-model:双向绑定 </p>
+<p>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;text&quot; v-model &#x3D; &quot;message&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其实就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> &lt;input type&#x3D;&quot;text&quot; :value &#x3D; &quot;message&quot; </span><br><span class="line">@input &#x3D; &quot;message &#x3D; \$event.target.value&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+ <!-- input 有一个input属性 可以实时监听 input输入的数据 -->
+
+<p>修饰符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- v-model 修饰符 lazy number --&gt;</span><br><span class="line">&lt;!-- lazy 失去聚焦后在改变message的值 --&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;&quot; id&#x3D;&quot;&quot; v-model.lazy &#x3D; &quot;lazz&quot;&gt;</span><br><span class="line">&lt;!-- number 只输入数字--&gt;</span><br><span class="line">&lt;!-- &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;&quot; id&#x3D;&quot;&quot; v-model &#x3D; &quot;age&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- v-model 默认把数据类型变成string类型 --&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;&quot; id&#x3D;&quot;&quot; v-model.number &#x3D; &quot;age&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- trim 去除两边的空格 --&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;&quot; id&#x3D;&quot;&quot; v-model.trim &#x3D; &quot;trimmmm&quot;&gt;</span><br><span class="line"> ---详情见v-model.html</span><br></pre></td></tr></table></figure>
+
+
+
+<!-- 组件写法 详情见Vue组件化相关html -->
+
+<p>全局组件构造器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const zch &#x3D; Vue.extend(&#123;</span><br><span class="line">template:&#96;&lt;zch1&gt;&lt;&#x2F;zch1&gt;&#96;,</span><br><span class="line">props:[&#39;&#39;],</span><br><span class="line">components:&#123;</span><br><span class="line"></span><br><span class="line">&lt;!-- 引用父子关系的组件 这里构造了另一个组件构造器的组件可以在template中使用如zch1 --&gt;</span><br><span class="line">&lt;!-- 子组件必须在父组件之前创建！！！！！！！！！ --&gt;</span><br><span class="line">zch1:zch1</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>全局组件注册：</p>
+<!-- 语法糖 -->
+
+<p>Vue.component(“组件名字”，{<br>template:``,<br>props:[‘’]<br>})<br>或者 Vue.component(“组件名字”，组件构造器 如 zch)</p>
+<p>{</p>
+<p>父子组件的通信：</p>
+<!-- 父组件通过prop向子组件传递消息
+       -->
+<!-- 当props 和组件中的data拥有相同变量的数据的时候 优先使用props的数据并报出data参数重复的错误 -->
+
+<pre><code>使用props来声明需要从父组件中接收的数据 在创建的组件出接收 用:props中的名字=&quot;data中的数据&quot;
+      那么props中的相对应变量就会存放实例data中的数据了
+    props有两种写法 一种是字符串数组的形式来传递名称 如： props: [&apos;cfruit&apos;, &apos;cmessage&apos;]
+    另一种是传递一个对象，对象时还需要定义他的类型 如：
+     props:{cfruit:Array,cmessage:String}
+    常见类型：String、Number、Boolean、Object、Data、Function、Symbol，也可以是自定义类型
+  在传递一个对象时还可以对其设置默认值 如：
+   props:{cfruit:{
+              type:Array,
+              default(){
+               return [&quot;没有水果了&quot;]
+              }
+                },
+          cmessage:{
+               type:String,
+               default:&quot;sdfsdfdsf&quot;
+                    }}
+                    当类型是Object或者Array是需要返回一个function,若数据是多种类型可以用数组表示如：
+                      cfruit:{
+                          type:[Array,Number],
+                      }
+                      还有一个required 若required为true 则必须给他传值,
+                      validator自定义函数确定接收到的数据必须是下面几种 如：
+                       cfruit:{
+                         validator：function(value){
+                           return [&apos;success&apos;,&apos;warning&apos;,&apos;danger&apos;].indexof(value) !== -1
+                         }
+                       }
+                       此时cfruit从父组件中传过来的值必须是success、warning或者danger</code></pre><!-- 子组件通过emit向父组件传递消息 -->
+<!-- v-on也就是@ 可以监听DOM的事件也可以接收自定义事件 -->
+
+<p>子组件中的按钮发生了点击后 父组件监听需要用到 this.$emit(“类型”，数据)<br>  在引用这个模板中写个自定义的点击事件@类型与$emit 中的类型一致:方法名–不需要括号<br>在 Vue 实例 methods 中方法名(数据) 他会默认接收子组件传过来的数据<br>}<br>{<br>  父子组件间的访问 父组件访问子组件—$children或者在组件中添加ref属性 通过$refs —vue父访问子$children-$refs.html<br>                  子组件访问父组件—$parent访问父组件中的方法数据  –$root访问根元素也就是vue实例对象中的方法属性—vue子访问父$parent-$refs.html<br>}<br>为什么组件中的 data 返回的是一个函数 因为如果不是函数的话 其他位置调用这个组件 比如这个组件是一个计数器 其他计数器加减时候 若不是函数而是如同实例中的 data 写法，就会指向同一个对象，就会引起连锁反应让所有的计数器组件中的计数相同， 这样是不好的 而当他是一个函数的时候 每个计数器指向的内存地址是不同的 就不会有连锁反应</p>
+<p>其实组件的原型是指向 Vue 的, Vue 里面拥有的属性基本组件中存在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Vue 对象下的实例属性：</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">el：选择 --如： el: &quot;#zch&quot; ,</span><br><span class="line">data ：数据 ---如：</span><br><span class="line">data:&#123;</span><br><span class="line">message:&quot;helad&quot;,</span><br><span class="line">fruit: [</span><br><span class="line">&#123; id: 1, name: &quot;苹果&quot; &#125;,</span><br><span class="line">&#123; id: 2, name: &quot;菠萝&quot; &#125;,</span><br><span class="line">&#123; id: 3, name: &quot;葡萄&quot; &#125;,</span><br><span class="line">&#123; id: 4, name: &quot;香蕉&quot; &#125;,</span><br><span class="line">&#123; id: 5, name: &quot;橙子&quot; &#125;,</span><br><span class="line">&#123; id: 6, name: &quot;火龙果&quot; &#125;,</span><br><span class="line">],</span><br><span class="line">&#125;</span><br><span class="line">methods 中的方法 如 add ---add:function()&#123;&#125;----- add()&#123;&#125;</span><br><span class="line">---fruitclick(index)&#123;</span><br><span class="line">console.log(&quot;fruitclick -&gt; index&quot;, index)</span><br><span class="line">&#125;</span><br><span class="line">components --- 自定义组件 在自定义中调用了@必须要加.native 如点击事件 @click.native</span><br><span class="line">---在实例属性中填写为局部组件只在该实例下可以使用该组件 在实例外使用 Vue.compoment 创建为全局组件可以在任何实例对象中使用</span><br><span class="line">--见 vue 组件化1.html</span><br><span class="line">---components&#123;</span><br><span class="line">组件名：组件构造器或者 组件名:&#123;template:&#96;&#96;&#125;</span><br><span class="line">&#125;</span><br><span class="line">computed：计算属性</span><br><span class="line">filters:过滤器 --见 shopping.html</span><br><span class="line">watch:监听某一个data的数据是否发生改变 发生改变就会获取到改变的值并进行一个函数回调 详情见watch.html和vue组件化5--拓展watch.html</span><br><span class="line"></span><br><span class="line">不传参可以不加(), 需要传参没传参返回 undefind ,不传参加了括号为 数据为 event 的值</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>es6 最新写法中 tab 上面的点可以支持字符串换行</p>
+<pre><code>数组使用的三种方法 ：
+            filter(function(n){}) 需要返回的是true or false 可以过滤数值 比如提取出数组中小于一百的数值，返回到一个新的数组，其中n为数组中对应的值
+            map(function(n){})  返回一个数值 对数组中的数值进行加减乘除  如对数组中的每一个数值乘以二  n为数组中对应的值
+            reduce(function(previous,n){return previous+n},初始化值)    对数组中的数值进行汇总 其中previous一开始的值为初始化的值，之后previous为previous+n ,n为数组相对应的数值 就可以计算出数组的所有值的总和
+
+function可以写成箭头函数
+
+event :
+当完成一个操作的时候系统会自动传一个event的值 比如可能是鼠标的具体位置的改变值 在input中 event.target.value代表的是input输入的值
+
+两个input框互斥 只需要name相同
+label的好处 点击文字的时候 相对应的input框也会有所反应 比如属性为CheckBox时候 点击文字会选中 text时候点击文字会聚焦输入框
+button disabled属性 true时候按钮点击无效</code></pre><p>{<br>  模块化写法 使用闭包去实现模块化<br>  一般写法： 将所需要的文件封装成一个闭包用一个全局变量去接收这个闭包 在闭包中定义个空对象 并且将所需要的东西导出赋值给一个全局变量中(比如命名为model)，需要用到的方法变量在函数中用一个空的对象去存放并导出 在另一个地方使用时只需要model.即可 如：<br>      ;var model = (function(){<br>              var res = {};<br>              var name  = “model”;<br>              var flag = true;<br>              function sum(num1,num2){<br>                return num1+num2;<br>                                }<br>              res.sum = sum;<br>              res.name = name;<br>              res.flag = flag;<br>              return res;<br>  }())<br>  这样就将res导出了，并在使用时以model.来使用 比如model.flag 去获取这个flag是true或者false</p>
+<p>  commonjs写法：<br>  在导出的时候：module.exports = {<br>                         var flag = true;<br>                         function sum(num1,num2){<br>                         return num1+num2;<br>                                }<br>  }<br>  导入：let{flag,sum} = require(‘地址’)</p>
+<p>  es6中的模块化：<br>  在script中添加type = “module”可以使该js模块化不会被其他js所影响<br>  在需要导出的js文件中写export{里面写需要传出去的名称以及函数} 或者在定义一个变量或者函数时定义可以导出<br>  如：exoprt let name = “zch”;export function(){}就可以<br>  在需要到如的js文件中写import{里面写需要用到的数据以及方法} from “所需数据的js地址.js”;<br>  特殊情况 当你定义了一个const变量或者函数想要导出时还可以使用default，一个模态化的js中只能存在一个export default，切记！<br>  并且在需要改变量时候只需要 import abc(ps：随便命名) from ‘地址.js’;如：<br>     const address = “北京”; export default address; 或者用default导出一个函数<br>     export default function(){}<br>     在导入时：import abc from “地址.js” 其中abc是任意取名<br>     导入的时候若全部导入或者导入对象较多时候可以使用 import * as aaa from “地址.js”的方式将数据存放在aaa对象中 在以aaa.对应数据的方式引用 其中aaa为任意命名<br>     该语法只在script 的type是module时候可用！！<br>}<br>{<br>  关于grunt/gulp/webpack:<br>  什么时候使用grunt/glup：<br>  #如果一个工程的模块化依赖很简单或者没有用到模块化的概念<br>  #只需要进行简单的合并、压缩，就可以使用grunt/gulp即可。<br>  #若是项目需要使用模块化管理，而且相互依赖非常强时需要用到webpack。<br>  gulp的task：<br>  #下面的task就是将src下面所有的js文件转成es5语法并且最终输出到dist文件夹中<br>      gulp.task(‘js’,() =&gt;<br>      gulp.src(‘src/*.js)<br>        .pipe(babel({<br>          presets:[‘es2015’]<br>        }))<br>        .pipe(gulp.dest(‘dist’))<br>      );<br>      区别：<br>      gulp和grunt强调的是前段流程的自动化而webpack强调的是模块化开发管理，文件压缩合并、预处理等功能只是webpack附带功能。<br>}</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/">http://yoursite.com/2020/06/23/Vue%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/06/23/webpack/"><img class="prev-cover" data-src="/" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">webpack</div></div></a></div><div class="next-post pull-right"><a href="/2020/06/12/Ten-sorting-algorithms/"><img class="next-cover" data-src="/" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Ten sorting algorithms</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By John Doe</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script></body></html>
