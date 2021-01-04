@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-01T03:44:44.709Z</updated>
+  <updated>2021-01-04T07:26:56.775Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vscode常用的快捷键</title>
+    <link href="http://yoursite.com/2021/01/04/vscode%E5%B8%B8%E7%94%A8%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://yoursite.com/2021/01/04/vscode%E5%B8%B8%E7%94%A8%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE/</id>
+    <published>2021-01-04T07:26:56.502Z</published>
+    <updated>2021-01-04T07:26:56.775Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="vscode常用的快捷键"><a href="#vscode常用的快捷键" class="headerlink" title="vscode常用的快捷键"></a><a href="https://www.cnblogs.com/yangruolan/p/10944250.html" target="_blank" rel="noopener">vscode常用的快捷键</a></h1><p>Ctrl + Shift + N　　打开新的编辑器窗口</p><p>Ctrl + Shift + W　　关闭编辑器窗口</p><p>Ctrl + Shift + P　　展开全局命令面板</p><p>Ctrl + P　　快速打开最近打开的文件</p><p>Ctrl + X　　剪切</p><p>Ctrl + C　　复制</p><p>Ctrl + H　　打开搜索历史记录</p><p>F2　　重命名</p><p>Alt + up / down　　移动上下行</p><p>Shift + Alt + up / down　　在当前行上复制上下行</p><p>Ctrl + Enter　　在当前行下插入新的一行</p><p>Ctrl + Shift + Enter　　在当前行上插入新的一行</p><p>Ctrl + ] / [　　行缩进</p><p>Home　　光标跳转到当前行头</p><p>End　　光标跳转到当前行尾</p><p>Ctr + Home　　跳转到当前页头</p><p>Ctrl + End　　跳转到当前页尾</p><p>Ctrl + up / down　　行视图上下偏移</p><p>Ctrl + Shift + [　　折叠区域代码</p><p>Ctrl + Shift + ]　　展开区域代码</p><p>Ctrl + k + 0 　　代码收起</p><p>Ctrl + k + j　　代码展开</p><p>Ctrl + /　　添加单行注释</p><p>Shift + Alt + A　　添加多行注释</p><p>Shift + Alt + F　　格式化代码</p><p><strong>显示快捷键</strong></p><p>F11　　切换全屏模式</p><p>Ctrl + = / -　　屏幕放大或缩小</p><p>Ctrl + B　　侧边栏隐藏</p><p>Ctrl + Shift + X　　打开插件市场面板</p><p>Ctrl + Shift + V　　预览编译后的Markdown文件</p><p>Alt + L + O　　打开浏览器</p><p>Alt + Tab　　切换窗口</p><p>Windows + Tab　　切换屏幕</p><p>Window + D　　显示桌面</p><p>Window + M　　所有程序最小化</p><p><strong>查找替换快捷键</strong></p><p>Ctrl + F　　查找</p><p>Ctrl + H　　查找替换</p><p>Ctrl + Shift + F　　在整个文件夹中查找</p><p> <a href="https://www.cnblogs.com/yangruolan/p/10944250.html" target="_blank" rel="noopener">vscode常用的快捷键</a></p><p>Ctrl + Shift + N　　打开新的编辑器窗口</p><p>Ctrl + Shift + W　　关闭编辑器窗口</p><p>Ctrl + Shift + P　　展开全局命令面板</p><p>Ctrl + P　　快速打开最近打开的文件</p><p>Ctrl + X　　剪切</p><p>Ctrl + C　　复制</p><p>Ctrl + H　　打开搜索历史记录</p><p>F2　　重命名</p><p>Alt + up / down　　移动上下行</p><p>Shift + Alt + up / down　　在当前行上复制上下行</p><p>Ctrl + Enter　　在当前行下插入新的一行</p><p>Ctrl + Shift + Enter　　在当前行上插入新的一行</p><p>Ctrl + ] / [　　行缩进</p><p>Home　　光标跳转到当前行头</p><p>End　　光标跳转到当前行尾</p><p>Ctr + Home　　跳转到当前页头</p><p>Ctrl + End　　跳转到当前页尾</p><p>Ctrl + up / down　　行视图上下偏移</p><p>Ctrl + Shift + [　　折叠区域代码</p><p>Ctrl + Shift + ]　　展开区域代码</p><p>Ctrl + k + 0 　　代码收起</p><p>Ctrl + k + j　　代码展开</p><p>Ctrl + /　　添加单行注释</p><p>Shift + Alt + A　　添加多行注释</p><p>Shift + Alt + F　　格式化代码</p><p><strong>显示快捷键</strong></p><p>F11　　切换全屏模式</p><p>Ctrl + = / -　　屏幕放大或缩小</p><p>Ctrl + B　　侧边栏隐藏</p><p>Ctrl + Shift + X　　打开插件市场面板</p><p>Ctrl + Shift + V　　预览编译后的Markdown文件</p><p>Alt + L + O　　打开浏览器</p><p>Alt + Tab　　切换窗口</p><p>Windows + Tab　　切换屏幕</p><p>Window + D　　显示桌面</p><p>Window + M　　所有程序最小化</p><p><strong>查找替换快捷键</strong></p><p>Ctrl + F　　查找</p><p>Ctrl + H　　查找替换</p><p>Ctrl + Shift + F　　在整个文件夹中查找</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;vscode常用的快捷键&quot;&gt;&lt;a href=&quot;#vscode常用的快捷键&quot; class=&quot;headerlink&quot; title=&quot;vscode常用的快捷键&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://www.cnblogs.com/yangruolan/p/1094
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>webpack</title>
